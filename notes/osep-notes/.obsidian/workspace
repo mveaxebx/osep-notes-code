@@ -1,0 +1,96 @@
+{
+  "main": {
+    "id": "90a13cdbc944f900",
+    "type": "split",
+    "children": [
+      {
+        "id": "ff49afd364e0b356",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "MSSQL.md",
+            "mode": "preview"
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "68994b79e0833a5e",
+    "type": "split",
+    "children": [
+      {
+        "id": "65c9f9e9c6aa4d4e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2b5500f2eb27b541",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "1ed38c42bd6f5db6",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "5e0e5c81a3b74b46",
+    "type": "split",
+    "children": [
+      {
+        "id": "d9804e72a5f7c9c0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e2ff1797282e23d2",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "MSSQL.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "ff49afd364e0b356",
+  "lastOpenFiles": [
+    "MSSQL.md",
+    "Oneliner.md",
+    "AD.md",
+    "cmd.md"
+  ]
+}
