@@ -1,7 +1,7 @@
 ## Microsoft SQL attacks
 
 MSSQL in AD have SPN. To query the DC:
-
+[[Active Directory]]
 #AD #SPN #cmd
 ``` cmd
 setspn -T corp1 -Q MSSQLSvc/*
