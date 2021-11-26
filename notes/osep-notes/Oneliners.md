@@ -1,4 +1,4 @@
-## Onliner
+## Oneliners
 
 
 ### Powershell
@@ -37,6 +37,8 @@ while (($byte = $fileStream.ReadByte()) -gt -1) {
 $hexDll = $stringBuilder.ToString() -join ""
 $hexDll | Out-File C:\Users\Administrator\Desktop\hex.txt
 ```
+
+^6217c2
 
 
 #ps1 #reflection #runner 

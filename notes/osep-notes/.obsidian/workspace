@@ -4,13 +4,13 @@
     "type": "split",
     "children": [
       {
-        "id": "ff49afd364e0b356",
+        "id": "beb67b568eb58b96",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Oneliner.md",
-            "mode": "source"
+            "file": "Oneliners.md",
+            "mode": "preview"
           }
         }
       }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Oneliner.md",
+                "file": "Oneliners.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -86,11 +86,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "ff49afd364e0b356",
+  "active": "beb67b568eb58b96",
   "lastOpenFiles": [
-    "Oneliner.md",
+    "Oneliners.md",
+    "Net filters.md",
     "MSSQL.md",
-    "AD.md",
-    "cmd.md"
+    "Shellcoders/vba & powershell & jscript.md",
+    "Shellcoders/injection and migration.md",
+    "Active Directory.md",
+    "Defense Bypass/amsi & uac bypass.md",
+    "Defense Bypass/applocker bypass.md",
+    "Defense Bypass/av bypass.md",
+    "Post Exploitation/Windows Post-exp.md"
   ]
 }

