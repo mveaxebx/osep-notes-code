@@ -9,8 +9,8 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "MSSQL.md",
-            "mode": "preview"
+            "file": "Oneliner.md",
+            "mode": "source"
           }
         }
       }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "MSSQL.md",
+                "file": "Oneliner.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,8 +88,8 @@
   },
   "active": "ff49afd364e0b356",
   "lastOpenFiles": [
-    "MSSQL.md",
     "Oneliner.md",
+    "MSSQL.md",
     "AD.md",
     "cmd.md"
   ]
