@@ -70,7 +70,7 @@ Links are **not bidirectonal** , but there can be connection back home, so if we
 To obtain code execution we can use: xp_cmdshell, sp_oacreate (Ole Automation Procedure) or through loading custom assembly. Refer to the mssql-exp in code section for implementation.
 
 For Custom Assemblies we can use the CREATE ASSEMBLY procedure, but that also requires TRUSTWORTHY db. We import managed dll as an object and execute. To hex encode assembly we use the follow:
-[[Oneliners#^6217c2]]
+[[Oneliners - ps1#^6217c2]]
 
 
 

