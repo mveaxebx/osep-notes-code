@@ -55,7 +55,14 @@ For execute as USER we must do it on the msdb as it is TRUSTWORTHY with user dbo
 
 #### Linked SQL Servers for Priv Escalation
 
+MSSQL can be linked together. When the link is create the admin specifies execution context - it can be dynamic based on the current context, but admins can choose specific SQL login, like with the impersonation (admin misconfig). The stored procedure sp_linkedserver can be used for enum. Then, we must enum which context is running on the Linked MSSQL - if sa we can execute code, if not we can try to repeat the enum with Linked MSSQL servers.
+When we enum for security context using the openquery it is important to escape double quotes with backslash. In the EXEC AT synatax, it is important to escape single quote, it is escaped by the second single quote. 
+The **RECONFIGURE** on the Linked MSSQL server requires to have the **RPC Outbound ** (it is not set by defaut but it might eb set), if we are in sysadmin role we can enable RPC Out with the **sp_serveroption** stored procedure. 
 
+Links are **not bidirectonal** , but there can be connection back home, so if we want to come home or move across different links, we must always perform the same steps.
+1. Enum Linked MSSQL Servers
+2. Enum the security context of this Link
+3. If sa over link we can get Code Execution, if not we can repeat. 
 
 
 ### Getting code execution 
