@@ -90,6 +90,37 @@ To-do.
 
 
 ## Kerberos Delegation
+Kerberos Double Hop issue - when there is a web app for all employee that uses Kerberos and pulls the data from the MSSQL in the backend. The employees access it, but only has sent the TGS to the Web Server, which cannot be reused. Kerberos Delegation solves this design issue. There are several implementionof this: Unconstrained delegation, contrained delegation and resource based constrained delegation (the last requires at least 2012 WIN Server). 
+Kerberos Auth explained: [[Windows Post-exp#^6ade8c]]
+
+#### Unconstrained Delegation
+
+The difference in the Kerberos flow is that before the TGS is requested, the **Forwardable TGT** is requested. Then the client sends TGS with **Fordardable TGT**, which the server can reuse to communicate to backend-server as the user (by requesting more TGS). This introduces number of issues - the server can authenticate as the user to **any services** - because is has the forwardable TGT.
+
+If we manage to compromise the service, we can compromise the user's TGTs - it can be high privileges domain user. We either need to compromise the app running (then we can use the Tickets - we can easly escalate to admin with impersonation) with the service account or do the lateral movement (compromise the server etc.)
+
+To Enumerate unconstrained delegation we can use powerview:
+#powerview #ps1 #enum
+
+```powershell
+Get-DomainComputer -Unconstrained
+```
+[[AD Enum - Powerview & Bloodhound#^660271]]
+Once we have the Admin on the machine with Unconstrained Delegation, we can get the TGT and Pass-The-Ticket:
+[[Windows Post-exp#^1a750f]]
+then move laterally:
+[[Windows LM]]
+
+In some cases the privileged user can be added to the **Protected Group** which would not allow to delegate their tickets - but that would broke the app for them. 
+
+If there is unconst delegation configured and the PrintSpooler service on DC is reachable over RDP from the compromised unconst delegation machine we may be able to get the DC machine account. 
+
+#### Constrained Delegation
+
+
+#### Rb Constrained Delegation
+
+
 
 
 ## AD Forrest

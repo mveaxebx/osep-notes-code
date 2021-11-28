@@ -1,4 +1,4 @@
-## AD Enum - Powerview & Bloodhound
+F## AD Enum - Powerview & Bloodhound
 
 ### Powerview
 #powerview #AD #enum
@@ -39,6 +39,13 @@ ConvertFrom-SID <SID>
 ```
 
 ^ea8e3b
+
+Enum Servers with Unconstrained Delegation:
+#powerview #ps1 #enum ^660271
+``` powershell
+Get-DomainComputer -Unconstrained
+```
+
 
 ```powershell
 a
