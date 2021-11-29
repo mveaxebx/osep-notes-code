@@ -9,8 +9,8 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Active Directory.md",
-            "mode": "source"
+            "file": "Post Exploitation/Linux Post-exp.md",
+            "mode": "preview"
           }
         }
       }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Active Directory.md",
+                "file": "Post Exploitation/Linux Post-exp.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,15 +88,15 @@
   },
   "active": "46b2df34e62ce5c6",
   "lastOpenFiles": [
+    "Post Exploitation/Linux Post-exp.md",
+    "Oneliners - ps1.md",
+    "Post Exploitation/Mimikatz and Rubeus.md",
+    "Lateral Movement/Windows LM.md",
+    "Lateral Movement/Linux LM.md",
+    "Defense Bypass/applocker bypass.md",
+    "Post Exploitation/Windows Post-exp.md",
     "Active Directory.md",
     "AD Enum - Powerview & Bloodhound.md",
-    "Post Exploitation/Windows Post-exp.md",
-    "Oneliners - ps1.md",
-    "Lateral Movement/Windows LM.md",
-    "Post Exploitation/Linux Post-exp.md",
-    "MSSQL.md",
-    "Net filters.md",
-    "Defense Bypass/amsi & uac bypass.md",
-    "Post Exploitation/General Meterpreter Post-exp.md"
+    "MSSQL.md"
   ]
 }

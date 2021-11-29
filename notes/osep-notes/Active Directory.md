@@ -121,6 +121,19 @@ If there is unconst delegation configured and the PrintSpooler service on DC is 
 #### Rb Constrained Delegation
 
 
+### Kerberoasting
+
+User requested TGS are encrypted with the service (SPN) NTLM hash. It is because service must check this token and it checks it by decrypting with its own NTLM (which it knows). We as the Domain User having the TGT can request the TGS for the SPN to authenticate to the Service. Once we obtain the TGS we can crack it offline to crack the SPN password. 
+
+### Silver Ticket
+
+Once we obtain the service password or the service password hash we can forge any TGS for that service - silver ticket. In that way we can escalate our privilages in the context of the current service e.g. normal user on the database, database admin on the database.
+
+### Golden Ticket
+
+Once we have the NTLM hash of the krbtgt service (we can obtain that by the DCSync), we would be able to forge any TGT for any user, as each TGT is encrypted with the krbtgt service NTLM hash.
+
+
 
 
 ## AD Forrest

